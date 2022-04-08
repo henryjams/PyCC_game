@@ -10,6 +10,7 @@ import pygame
 
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 class WarpInvasion:
     """General class that manages game assets and behavior"""
@@ -21,7 +22,7 @@ class WarpInvasion:
         
         # Windowed mode
         self.screen = pygame.display.set_mode(
-        (self.settings.screen_width, self.settings.screen_height))
+            (self.settings.screen_width, self.settings.screen_height))
         
         # For fullscreen mode, uncomment the following and disable "Windowed.."
         """
@@ -33,12 +34,14 @@ class WarpInvasion:
         pygame.display.set_caption("Chaos from the Warp")
                 
         self.ship = Ship(self) 
+        self.bullets = pygame.sprite.Group()
         
     def run_game(self):
         """Main loop for the game"""
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()
             self._update_screen()
             
     def _check_events(self):
@@ -54,7 +57,9 @@ class WarpInvasion:
                 
     def _check_keydown_events(self, event):
         """Respond to a key being pressed"""
-        if event.key == pygame.K_RIGHT:
+        if event.key == pygame.K_SPACE:
+            self._fire_bullet()
+        elif event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
@@ -68,10 +73,17 @@ class WarpInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
+    def _fire_bullet(self):
+        """Create a new bullet and add it to the bullets group"""
+        new_bullet = Bullet(self)
+        self.bullets.add(new_bullet)
+
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
 
         pygame.display.flip() # Make the screen visible
 
