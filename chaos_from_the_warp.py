@@ -81,6 +81,7 @@ class WarpInvasion:
             
     def _update_bullets(self):
         """Update the position of bullets and remove old bullets"""
+        # Update bullet position
         self.bullets.update()
         
         # Get rid of bullets off the top edge of the screen rect
