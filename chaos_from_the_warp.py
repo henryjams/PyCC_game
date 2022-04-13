@@ -41,13 +41,7 @@ class WarpInvasion:
         while True:
             self._check_events()
             self.ship.update()
-            self.bullets.update()
-            
-            # Get rid of bullets off the top edge of the screen rect
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-                       
+            self._update_bullets()
             self._update_screen()
             
     def _check_events(self):
@@ -84,6 +78,15 @@ class WarpInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+            
+    def _update_bullets(self):
+        """Update the position of bullets and remove old bullets"""
+        self.bullets.update()
+        
+        # Get rid of bullets off the top edge of the screen rect
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
