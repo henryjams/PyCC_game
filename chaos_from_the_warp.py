@@ -95,17 +95,27 @@ class WarpInvasion:
 
     def _create_fleet(self):
         """Create the fleet of aliens"""
-        # Make an alien
+        # Create an alien and find the number of aliens that can fit in a row
         alien = Alien(self)
-        self.aliens.add(alien)
+        alien_width = alien.rect.width
+        available_space_x = self.settings.screen_width - int(1.5 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+        
+        # Create first row of aliens
+        for alien_number in range(number_aliens_x):
+            # Create an alien and place it in the row
+            alien = Alien(self)
+            alien.x = alien_width + 2 * alien_width * alien_number
+            alien.rect.x = alien.x
+            self.aliens.add(alien)
         
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
-        self.aliens.draw(self.screen)
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        self.aliens.draw(self.screen)
         
         pygame.display.flip() # Make the screen visible
 
