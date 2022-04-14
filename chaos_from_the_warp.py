@@ -13,6 +13,8 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 
+background = pygame.image.load('images/background.jpg')
+
 class WarpInvasion:
     """General class that manages game assets and behavior"""
     
@@ -32,8 +34,9 @@ class WarpInvasion:
         self.settings.screen_height = self.screen.get_rect().height
         """
         
+        # Set the caption and load the background image
         pygame.display.set_caption("Chaos from the Warp")
-                
+        
         self.ship = Ship(self) 
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
@@ -121,7 +124,7 @@ class WarpInvasion:
         if row_number % 2 == 0:
             offset = 0
         else:
-            offset = 0.5 * alien_width
+            offset = 0.3 * alien_width
         
         alien.x = alien_width + offset + 2 * alien_width * alien_number
         alien.rect.x = alien.x
@@ -131,7 +134,7 @@ class WarpInvasion:
         
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
-        self.screen.fill(self.settings.bg_color)
+        self.screen.blit(self.settings.bg_img, (0, 0))
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
