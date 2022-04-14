@@ -12,15 +12,15 @@ class Settings:
         """Initialize the game settings"""
         # Screen settings
         self.screen_width = 1600
-        self.screen_height = 1000
+        self.screen_height = 1200
         self.bg_color = (10, 10, 10)
         
         # Bullet settings
-        self.bullet_speed = 1.0
+        self.bullet_speed = 1.2
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (250, 10, 5)
-        self.bullets_allowed = 3
+        self.bullets_allowed = 5
         
         # Ship settings
         self.ship_speed = .4
