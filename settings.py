@@ -16,7 +16,7 @@ class Settings:
         self.screen_width = 1600
         self.screen_height = 1200
         self.bg_color = (10, 10, 10)
-        self.bg_img = pygame.image.load('images/background.jpg')
+        self.bg_img = pygame.image.load('images/background3.jpg')
         
         # Bullet settings
         self.bullet_speed = 3
