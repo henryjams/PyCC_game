@@ -15,9 +15,11 @@ class Ship:
         self.settings = cftw_game.settings
         self.screen_rect = cftw_game.screen.get_rect()
         
-        # Load the ship and get its rect
-        self.image = pygame.image.load('images/ship.bmp').convert()
-        self.image.set_colorkey((230, 230, 230)) # Colorkey out the background
+        # Load the ship and resize it to a standard ship size
+        self.image = pygame.transform.scale(
+            pygame.image.load('images/ship.bmp').convert(), (45, 115))
+        # Colorkey out the background
+        self.image.set_colorkey((255, 255, 255)) 
         self.rect = self.image.get_rect()
         
         # Start each new ship at the starting point
