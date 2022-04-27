@@ -98,9 +98,11 @@ class WarpInvasion:
                 self.bullets.remove(bullet)
 
     def _update_aliens(self):
-        """Update the positions of the alien fleet"""
+        """Check if the fleet is at an edge, then 
+            Update the positions of the alien fleet"""
+        self._check_fleet_edges()
         self.aliens.update()
-
+        
     def _create_fleet(self):
         """Create the fleet of aliens"""
         # Create an alien and find the number of aliens that can fit in a row
@@ -136,6 +138,19 @@ class WarpInvasion:
         alien.rect.y = alien.rect.height // 3 + (
                             int(1.5 * alien.rect.height) * row_number)
         self.aliens.add(alien)
+        
+    def _check_fleet_edges(self):
+        """Respond when aliens have reached the edge of the screen"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+            
+    def _change_fleet_direction(self):
+        """Drop the entire fleet and change direction"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
         
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
