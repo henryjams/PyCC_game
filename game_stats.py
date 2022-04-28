@@ -13,6 +13,9 @@ class GameStats:
         self.settings = cftw_game.settings
         self.reset_stats()
         
+        # Start cftw in an active state
+        self.game_active = True
+        
     def reset_stats(self):
         """Initialize statistics taht can change during the game"""
         self.ships_left = self.settings.ship_limit
