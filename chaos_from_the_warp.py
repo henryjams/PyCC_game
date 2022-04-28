@@ -15,6 +15,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
+from button import Button
 
 background = pygame.image.load('images/background.jpg')
 
@@ -48,6 +49,8 @@ class WarpInvasion:
         self.aliens = pygame.sprite.Group()
         
         self._create_fleet()
+
+        self.play_button = Button(self, "Play")
         
     def run_game(self):
         """Main loop for the game"""
@@ -216,6 +219,10 @@ class WarpInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+                
+        # Draw the play button if the game is inactive
+        if not self.stats.game_active:
+            self.play_button.draw_button()
         
         pygame.display.flip() # Make the screen visible
 

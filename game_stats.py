@@ -13,8 +13,8 @@ class GameStats:
         self.settings = cftw_game.settings
         self.reset_stats()
         
-        # Start cftw in an active state
-        self.game_active = True
+        # Start cftw in an inactive state
+        self.game_active = False
         
     def reset_stats(self):
         """Initialize statistics taht can change during the game"""
