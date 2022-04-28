@@ -116,6 +116,9 @@ class WarpInvasion:
         self._check_fleet_edges()
         self.aliens.update()
         
+        # Look for alien-ship collisions
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+            print("MAJOR HULL DAMAGE")
         
     def _create_fleet(self):
         """Create the fleet of aliens"""
