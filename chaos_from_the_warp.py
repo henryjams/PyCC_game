@@ -96,17 +96,26 @@ class WarpInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
-                
-        # Check for any bullets that have hit aliens
-        # If any are detected, get rid of the bullet and the alien hit
+        
+        self._check_bullet_alien_collisions()
+        
+    def _check_bullet_alien_collisions(self):
+        """Respond when bullets collide with aliens"""
+        # Remove any bullets and aliens that have collided
         collisions = pygame.sprite.groupcollide(
                         self.bullets, self.aliens, True, True)
+
+        if not self.aliens:
+            # Destroy existing bullets and create a new Fleet
+            self.bullets.empty()
+            self._create_fleet()
 
     def _update_aliens(self):
         """Check if the fleet is at an edge, then 
             Update the positions of the alien fleet"""
         self._check_fleet_edges()
         self.aliens.update()
+        
         
     def _create_fleet(self):
         """Create the fleet of aliens"""
