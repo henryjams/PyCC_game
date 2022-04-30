@@ -86,6 +86,9 @@ class WarpInvasion:
     
     def _start_game(self):
         """Starts the game"""
+        # Reset the game settings
+        self.settings.initialize_dynamic_settings()
+        
         # Reset the game statistics
         self.stats.reset_stats()
         self.stats.game_active = True
@@ -149,6 +152,7 @@ class WarpInvasion:
             # Destroy existing bullets and create a new Fleet
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
             
     def _check_aliens_bottom(self):
         """Check if any aliens have reached the bottom of the screen"""
