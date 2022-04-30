@@ -82,21 +82,25 @@ class WarpInvasion:
         """Start a new game is the player clicks on the play button"""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
         if button_clicked and not self.stats.game_active:
-            # Reset the game statistics
-            self.stats.reset_stats()
-            self.stats.game_active = True
-            
-            # Get rid of any remaining aliens and bullets
-            self.aliens.empty()
-            self.bullets.empty()
-            
-            # Create a new fleet and center the ship
-            self._create_fleet()
-            self.ship.center_ship()
-            
-            # Hide the mouse cursor
-            pygame.mouse.set_visible(False)
-                 
+            self._start_game()
+    
+    def _start_game(self):
+        """Starts the game"""
+        # Reset the game statistics
+        self.stats.reset_stats()
+        self.stats.game_active = True
+        
+        # Get rid of any remaining aliens and bullets
+        self.aliens.empty()
+        self.bullets.empty()
+        
+        # Create a new fleet and center the ship
+        self._create_fleet()
+        self.ship.center_ship()
+        
+        # Hide the mouse cursor
+        pygame.mouse.set_visible(False)
+        
     def _check_keydown_events(self, event):
         """Respond to a key being pressed"""
         if event.key == pygame.K_SPACE:
@@ -108,6 +112,8 @@ class WarpInvasion:
         elif event.key == pygame.K_q:
             pygame.display.quit()
             sys.exit()
+        elif event.key == pygame.K_p and not self.stats.game_active:
+            self._start_game()
     
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
