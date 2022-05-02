@@ -13,7 +13,7 @@ class Scoreboard:
     def __init__(self, cftw_game):
         """Initialize scorekeeping attributes"""
         self.screen = cftw_game.screen
-        self.screen_rect = self.screen.get_rekt
+        self.screen_rect = self.screen.get_rect
         self.settings = cftw_game.settings
         self.stats = cftw_game.stats
         
@@ -27,8 +27,7 @@ class Scoreboard:
     def prep_score(self):
         """Turn the score into a rendered image"""
         score_str = str(self.stats.score)
-        self.score_image = self.font.render(score_str, True, 
-                                            self.text_color, 
+        self.score_image = self.font.render(score_str, True, self.text_color,
                                             self.settings.bg_color)
         
         # Display the score at the top right of the screen
