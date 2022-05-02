@@ -16,6 +16,7 @@ from bullet import Bullet
 from alien import Alien
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 background = pygame.image.load('images/background.jpg')
 
@@ -41,8 +42,9 @@ class WarpInvasion:
         # Set the caption and load the background image
         pygame.display.set_caption("Chaos from the Warp")
         
-        # Create an instance to store game statistics
+        # Create an instance to store game statistics and create a scoreboard
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
         
         self.ship = Ship(self) 
         self.bullets = pygame.sprite.Group()
@@ -252,6 +254,9 @@ class WarpInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+        
+        # Draw the score information
+        self.sb.show_score()
                 
         # Draw the play button if the game is inactive
         if not self.stats.game_active:
