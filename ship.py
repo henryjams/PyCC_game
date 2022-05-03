@@ -6,11 +6,14 @@ Created on Thu Feb  3 08:38:08 2022
 """
 
 import pygame
+from pygame.sprite import Sprite
 
-class Ship:
+class Ship(Sprite):
     """This class will manage the ship"""
     
     def __init__(self, cftw_game):
+        """Initialize the ship and set its starting position"""
+        super().__init__()
         self.screen = cftw_game.screen
         self.settings = cftw_game.settings
         self.screen_rect = cftw_game.screen.get_rect()
