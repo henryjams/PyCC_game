@@ -7,6 +7,7 @@ Created on Thu Jan 20 21:25:44 2022
 
 import sys
 from time import sleep
+import json
 
 import pygame
 
@@ -31,13 +32,6 @@ class WarpInvasion:
         # Windowed mode
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
-        
-        # For fullscreen mode, uncomment the following and disable "Windowed.."
-        """
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.settings.screen_width = self.screen.get_rect().width
-        self.settings.screen_height = self.screen.get_rect().height
-        """
         
         # Set the caption and load the background image
         pygame.display.set_caption("Chaos from the Warp")
@@ -118,8 +112,7 @@ class WarpInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
-            pygame.display.quit()
-            sys.exit()
+            self._close_game()
         elif event.key == pygame.K_p and not self.stats.game_active:
             self._start_game()
     
@@ -277,6 +270,16 @@ class WarpInvasion:
             self.play_button.draw_button()
         
         pygame.display.flip() # Make the screen visible
+        
+    def _close_game(self):
+        """Save high score and exit"""
+        saved_high_score = self.stats.get_saved_high_score()
+        if self.stats.high_score > saved_high_score:
+            with open('high_score.json', 'w') as file:
+                json.dump(self.stats.high_score, file)
+                
+        pygame.display.quit()
+        sys.exit()
 
 if __name__ == '__main__':
     # Make a game instance and run the game
